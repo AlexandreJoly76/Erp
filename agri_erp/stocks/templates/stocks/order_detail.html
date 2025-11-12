@@ -1,57 +1,61 @@
 <!doctype html>
 <html lang="fr">
 <head>
+  {% load static %}
   <meta charset="utf-8">
   <title>Commande</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: system-ui, sans-serif; margin: 24px; }
-    table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-    th, td { padding: 8px 10px; border-bottom: 1px solid #eee; text-align: left; }
-    .totaux { text-align: right; }
-  </style>
+  <link rel="stylesheet" href="{% static 'stocks/catalogueProduit.css' %}">
+  <link rel="stylesheet" href="{% static 'stocks/orderDetail.css' %}">
 </head>
 <body>
-  <h1>Commande {{ commande.id }}</h1>
+  <header class="page-header">
+    <h1>Commande {{ commande.id }}</h1>
+    <p class="actions"><a class="btn" href="{% url 'stocks:product_list' %}">← Retour au catalogue</a></p>
+  </header>
 
-  <p>
-    <strong>Client :</strong> {{ commande.client }}<br>
-    <strong>Date :</strong> {{ commande.date }}<br>
-    <strong>Statut :</strong> {{ commande.status }}<br>
-    <strong>TVA :</strong> {{ commande.tva }}
-  </p>
+  <main class="page-container">
+    <section class="meta">
+      <p>
+        <strong>Client :</strong> {{ commande.client }}<br>
+        <strong>Date :</strong> {{ commande.date }}<br>
+        <strong>Statut :</strong> {{ commande.status }}<br>
+        <strong>TVA :</strong> {{ commande.tva }}
+      </p>
+    </section>
 
-  <h2>Lignes</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Réf</th>
-        <th>Produit</th>
-        <th>Quantité</th>
-        <th>PU (€)</th>
-        <th>Total ligne (€)</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for l in commande.lignes.all %}
-      <tr>
-        <td>{{ l.produit.ref }}</td>
-        <td>{{ l.produit.nom }}</td>
-        <td>{{ l.quantite }}</td>
-        <td>{{ l.prix_unitaire }}</td>
-        <td>{{ l.valeur_ligne }}</td>
-      </tr>
-      {% empty %}
-      <tr><td colspan="5">Aucune ligne.</td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <h2>Lignes</h2>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Réf</th>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>PU (€)</th>
+          <th>Total ligne (€)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in commande.lignes.all %}
+        <tr>
+          <td>{{ l.produit.ref }}</td>
+          <td>{{ l.produit.nom }}</td>
+          <td>{{ l.quantite }}</td>
+          <td>{{ l.prix_unitaire }}</td>
+          <td>{{ l.valeur_ligne }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Aucune ligne.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
 
-  <p class="totaux">
-    <strong>Total HT :</strong> {{ commande.total_ht }} €<br>
-    <strong>Total TTC :</strong> {{ commande.total_ttc }} €
-  </p>
-
-  <p><a href="{% url 'stocks:product_list' %}">← Retour au catalogue</a></p>
+    <p class="totaux">
+      <strong>Total HT :</strong> {{ commande.total_ht }} €<br>
+      <strong>Total TTC :</strong> {{ commande.total_ttc }} €
+    </p>
+  </main>
 </body>
 </html>

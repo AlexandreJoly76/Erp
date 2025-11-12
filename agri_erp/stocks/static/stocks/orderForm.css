@@ -1,0 +1,23 @@
+
+/* Order form page — styles that extend catalogue theme */
+
+/* Ensure we reuse the same tokens as catalogueProduit.css */
+:root{
+	--form-max: 980px;
+}
+
+.page-container{max-width:var(--form-max);margin:0 auto}
+.order-form fieldset{border:1px solid #eef2f6;padding:16px;border-radius:8px;margin-bottom:16px;background:linear-gradient(180deg, rgba(250,252,255,0.6), #fff)}
+.order-form legend{font-weight:700;padding:0 6px}
+
+.order-form input[type=text], .order-form input[type=number], .order-form select, .order-form textarea{
+	width:100%;padding:10px;border:1px solid #e6eefb;border-radius:8px;background:#fbfdff;color:#0b1220;margin-top:6px}
+
+.order-form .table-wrap{margin-top:8px}
+.order-form table thead th{padding:10px}
+.order-form table tbody td{padding:10px}
+
+.actions-bottom{display:flex;gap:12px;justify-content:flex-end;margin-top:12px}
+.btn{border:0}
+.btn.btn-primary{background:var(--accent)}
+
