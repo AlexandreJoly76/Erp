@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Produits — Mini ERP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid #ddd; text-align: left; }
+    .alert { color: #b00020; font-weight: 600; }
+    .ok { color: #00695c; }
+  </style>
+</head>
+<body>
+  <h1>Catalogue Produits</h1>
+  <p><a href="{% url 'stocks:order_create' %}">➕ Créer une nouvelle commande</a></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Réf</th>
+        <th>Nom</th>
+        <th>Prix (€)</th>
+        <th>Quantité</th>
+        <th>Valeur stock (€)</th>
+        <th>État</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in produits %}
+      <tr>
+        <td>{{ p.ref }}</td>
+        <td>{{ p.nom }}</td>
+        <td>{{ p.prix }}</td>
+        <td>{{ p.quantite }}</td>
+        <td>{{ p.valeur_stock }}</td>
+        <td>
+          {% if p.quantite <= 10 %}
+            <span class="alert">Alerte stock</span>
+          {% else %}
+            <span class="ok">OK</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6">Aucun produit.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
