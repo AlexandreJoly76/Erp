@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Client, Commande, LigneCommande, Produit
 
+
 @admin.register(Produit)
 class ProduitAdmin(admin.ModelAdmin):
     list_display = ("ref", "nom", "prix", "quantite", "valeur_stock", "created_at")
@@ -8,17 +9,18 @@ class ProduitAdmin(admin.ModelAdmin):
     list_filter = ("created_at",)
     ordering = ("ref",)
 
+
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ("nom", "email", "type_client", "created_at")
     search_fields = ("nom", "email")
-    list_filter=("type_client","created_at")
+    list_filter = ("type_client", "created_at")
 
 
 class LigneCommandeInline(admin.TabularInline):
     model = LigneCommande
     extra = 1
-    autocomplete_fields=("produit",)
+    autocomplete_fields = ("produit",)
 
 
 @admin.register(Commande)

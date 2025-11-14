@@ -5,14 +5,11 @@ from .forms import CommandeForm, LigneCommandeFormSet
 
 from .models import Commande, Produit
 
-def product_list(request):
-    produits = Produit.objects.order_by("ref")
-    return render(request, "stocks/product_list.html", {"produits": produits})
-
 
 def product_list(request):
     produits = Produit.objects.order_by("ref")
     return render(request, "stocks/product_list.html", {"produits": produits})
+
 
 def order_create(request):
     if request.method == "POST":
@@ -31,10 +28,15 @@ def order_create(request):
         form = CommandeForm()
         formset = LigneCommandeFormSet()
 
-    return render(request, "stocks/order_form.html", {
-        "form": form,
-        "formset": formset,
-    })
+    return render(
+        request,
+        "stocks/order_form.html",
+        {
+            "form": form,
+            "formset": formset,
+        },
+    )
+
 
 def order_detail(request, pk: int):
     cmd = get_object_or_404(Commande, pk=pk)
